@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-!kh#ni7iw%xqanbed@n+m4%u5yvj0irrfdmlymm1zw9rc8$+o$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # CORS allowed origins (React frontend URL)
 CORS_ALLOWED_ORIGINS = [
