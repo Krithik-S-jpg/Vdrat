@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .container {
+      background: #fff;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 2.25rem;
+      margin-bottom: 30px;
+      color: #4a3c8c;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #6b5b95;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      font-size: 1rem;
+      font-weight: 400;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline-offset: 2px;
+    }
+    input:focus {
+      border-color: #764ba2;
+      box-shadow: 0 0 8px rgba(118, 75, 162, 0.7);
+    }
+
+    .errorlist {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin-top: -18px;
+      margin-bottom: 18px;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(118, 75, 162, 0.5);
+      transition: background 0.4s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #5a348b 0%, #4c61a1 100%);
+      box-shadow: 0 8px 20px rgba(76, 97, 161, 0.7);
+    }
+    button:active {
+      background: #4c3d85;
+      box-shadow: none;
+    }
+
+    .register-link {
+      margin-top: 22px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #7f6ca4;
+      user-select: none;
+    }
+    .register-link a {
+      color: #764ba2;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .register-link a:hover {
+      color: #4a3c8c;
+      text-decoration: underline;
+    }
+
+    .password-container {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 20px;
+      user-select: none;
+      color: #9b87c0;
+      transition: color 0.3s ease;
+    }
+    .toggle-password:hover {
+      color: #764ba2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Login form">
+    <h2>Login!</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      {{ form.username }}
+      {{ form.username.errors }}
+
+      <label for="{{ form.password.id_for_label }}">Password</label>
+      <div class="password-container">
+        {{ form.password }}
+        <span class="toggle-password" onclick="togglePasswordVisibility('id_password', this)" aria-label="Toggle password visibility" role="button" tabindex="0">🐵</span>
+      </div>
+      {{ form.password.errors }}
+
+      <button type="submit" aria-label="Login">Login</button>
+    </form>
+    <div class="register-link">
+      Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </div>
+  </div>
+
+  <script>
+    function togglePasswordVisibility(id, toggleSpan) {
+      const input = document.getElementById(id);
+      if (input.type === 'password') {
+        input.type = 'text';
+        toggleSpan.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        toggleSpan.textContent = '🐵';
+      }
+    }
+  </script>
+</body>
+</html>
